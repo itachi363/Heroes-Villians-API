@@ -10,3 +10,7 @@ class Super(models.Model):
     secondary_ability = models.CharField(max_length=255)
     catchphrase = models.CharField(max_length=255)
     super_type = models.ForeignKey(Super_Type, on_delete=models.CASCADE)
+
+class Superpower(models.Model):
+    name = models.CharField(max_length=255)
+    Supers = models.ManyToManyField(Super)
