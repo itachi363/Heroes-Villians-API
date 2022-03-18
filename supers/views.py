@@ -11,13 +11,11 @@ def supers_list(request):
     if request.method == 'GET':
         type_of_super = request.query_params.get('type')
         print(type_of_super)
-
-        queryset = Super.objects.all()
+        supers = Super.objects.all()
 
         if type_of_super:
-            queryset = queryset.filter(super_type__type=type_of_super)
-
-        supers = Super.objects.all()
+            supers = supers.filter(super_type__type=type_of_super)
+            
         serializer = SuperSerializer(supers, many=True)
         return Response(serializer.data)
 
