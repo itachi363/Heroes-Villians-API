@@ -11,10 +11,6 @@ def supers_list(request):
     supers = Super.objects.all()
     types_super = Super_Type.objects.all()
 
-    appending_dict = {}
-    appending_dict['type'] = ''
-    print(appending_dict)
-
     custom_response_dictionary = {}
 
     if request.method == 'GET':
