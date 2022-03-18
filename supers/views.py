@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import SuperSerializer
-from .models import Super
+from .serializers import SuperSerializer, SuperpowerSerializer
+from .models import Super, Superpower
 from super_types.models import Super_Type
 
 @api_view(['GET', 'POST'])
@@ -15,17 +15,19 @@ def supers_list(request):
 
     if request.method == 'GET':
         type_of_super = request.query_params.get('type')
-        blank = request.query_params.get('')
+
+        
 
         if type_of_super:
             supers = supers.filter(super_type__type=type_of_super)
+
 
         else:
             for type_super in types_super:
                 super_type_id = Super.objects.filter(super_type=type_super.id)
                 super_serializer = SuperSerializer(super_type_id, many=True)
                 custom_response_dictionary[type_super.type] = {
-                    "Supers": super_serializer.data
+                    "Supers": super_serializer.data,
                 }
     
             return Response(custom_response_dictionary)
